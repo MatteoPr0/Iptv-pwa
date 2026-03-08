@@ -2,28 +2,34 @@
 
 Web app mobile-first per login Xtream Codes, caricamento canali live e riproduzione browser-friendly di stream compatibili.
 
-## Requisiti
-- Node.js 20+
-- npm 10+
+## Uso da tablet Android (senza terminale)
+Non devi eseguire `npm install` o `npm run dev` dal tablet.
 
-## Installazione locale
+1. Apri il repository su GitHub
+2. Vai in **Settings → Pages**
+3. In **Build and deployment** imposta **Source: GitHub Actions**
+4. Fai push su `main`
+5. Attendi il job **Deploy to GitHub Pages**
+6. Apri l'URL pubblicato (formato tipico: `https://<username>.github.io/<nome-repo>/`)
+
+Una volta aperta la pagina dal browser Android, puoi anche aggiungerla alla home come app (PWA).
+
+## Deploy automatico (GitHub Actions)
+Il workflow è già incluso in `.github/workflows/deploy-pages.yml` e pubblica la cartella `dist` su GitHub Pages.
+
+## Sviluppo locale (solo PC)
+Questa parte serve solo se sviluppi dal computer:
+
 ```bash
 npm install
 npm run dev
 ```
 
-## Build
+Build di produzione locale:
+
 ```bash
 npm run build
 ```
-
-## Deploy su GitHub Pages
-Il repository include workflow automatico in `.github/workflows/deploy-pages.yml`.
-
-1. In GitHub vai su **Settings → Pages**
-2. In **Build and deployment** seleziona **Source: GitHub Actions**
-3. Fai push su `main`
-4. Il workflow costruisce con `VITE_BASE_PATH=/<nome-repo>/` e pubblica `dist` su Pages
 
 ## Funzionalità MVP attuali
 - Login Xtream (`player_api.php` con username/password)
