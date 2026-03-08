@@ -5,11 +5,21 @@ type Credentials = {
   server: string
   username: string
   password: string
+codex/review-existing-iptv-pwa-code-512lqx
   proxyUrl: string
+
+main
 }
 
 type XtreamUser = {
   auth: number
+codex/review-existing-iptv-pwa-code-512lqx
+
+  status: string
+  exp_date?: string
+  active_cons?: string
+  max_connections?: string
+main
 }
 
 type XtreamCategory = {
@@ -20,6 +30,10 @@ type XtreamCategory = {
 type XtreamChannel = {
   stream_id: number
   name: string
+codex/review-existing-iptv-pwa-code-512lqx
+
+  stream_icon?: string
+main
 }
 
 type AppState = 'login' | 'channels'
@@ -68,6 +82,7 @@ async function fetchJson<T>(url: string) {
   return (await response.json()) as T
 }
 
+codex/review-existing-iptv-pwa-code-512lqx
 function toFriendlyError(error: unknown, context: 'login' | 'channels') {
   if (error instanceof TypeError) {
     return 'Richiesta bloccata dal browser (probabile CORS/rete). Inserisci un Proxy URL oppure usa un backend proxy.'
@@ -84,6 +99,8 @@ function toFriendlyError(error: unknown, context: 'login' | 'channels') {
     : 'Impossibile caricare i canali: controlla CORS o proxy.'
 }
 
+
+main
 function useHlsPlayer(source: string | null) {
   const videoRef = useRef<HTMLVideoElement | null>(null)
 
@@ -107,6 +124,11 @@ function useHlsPlayer(source: string | null) {
         hls.destroy()
       }
     }
+codex/review-existing-iptv-pwa-code-512lqx
+
+
+    return
+main
   }, [source])
 
   return videoRef
@@ -119,7 +141,11 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null)
 
   const [categories, setCategories] = useState<XtreamCategory[]>([])
+codex/review-existing-iptv-pwa-code-512lqx
   const [selectedCategoryId, setSelectedCategoryId] = useState('')
+
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string>('')
+  main
   const [channels, setChannels] = useState<XtreamChannel[]>([])
   const [selectedChannel, setSelectedChannel] = useState<XtreamChannel | null>(null)
   const [isChannelsLoading, setIsChannelsLoading] = useState(false)
@@ -129,10 +155,16 @@ export default function Home() {
       return null
     }
 
+codex/review-existing-iptv-pwa-code-512lqx
     const server = normalizeUrl(credentials.server)
     const target = `${server}/live/${encodeURIComponent(credentials.username)}/${encodeURIComponent(credentials.password)}/${selectedChannel.stream_id}.m3u8`
     return buildProxyUrl(credentials.proxyUrl, target)
   }, [credentials.password, credentials.proxyUrl, credentials.server, credentials.username, selectedChannel])
+
+    const server = normalizeServer(credentials.server)
+    return `${server}/live/${credentials.username}/${credentials.password}/${selectedChannel.stream_id}.m3u8`
+  }, [credentials.password, credentials.server, credentials.username, selectedChannel])
+main
 
   const videoRef = useHlsPlayer(streamUrl)
 
@@ -153,16 +185,27 @@ export default function Home() {
     setError(null)
 
     try {
+codex/review-existing-iptv-pwa-code-512lqx
       const channelsUrl = buildApiUrl(creds, {
         action: 'get_live_streams',
         category_id: categoryId,
       })
 
+      const channelsUrl = `${server}/player_api.php?username=${encodeURIComponent(creds.username)}&password=${encodeURIComponent(creds.password)}&action=get_live_streams&category_id=${encodeURIComponent(categoryId)}`
+main
+
       const data = await fetchJson<XtreamChannel[]>(channelsUrl)
       setChannels(data)
       setSelectedChannel(data[0] ?? null)
+codex/review-existing-iptv-pwa-code-512lqx
     } catch (loadError) {
       setError(toFriendlyError(loadError, 'channels'))
+
+    } catch {
+      setError(
+        'Impossibile caricare i canali. Verifica CORS del provider o usa un proxy backend.',
+      )
+main
     } finally {
       setIsChannelsLoading(false)
     }
@@ -178,6 +221,7 @@ export default function Home() {
     setError(null)
 
     try {
+codex/review-existing-iptv-pwa-code-512lqx
       const authUrl = buildApiUrl(credentials, {})
       const authData = await fetchJson<{ user_info?: XtreamUser }>(authUrl)
 
@@ -189,6 +233,23 @@ export default function Home() {
       const categoriesData = await fetchJson<XtreamCategory[]>(categoriesUrl)
 
       setCategories(categoriesData)
+
+      const server = normalizeServer(credentials.server)
+
+      const authUrl = `${server}/player_api.php?username=${encodeURIComponent(credentials.username)}&password=${encodeURIComponent(credentials.password)}`
+
+      const authData = await fetchJson<{ user_info?: XtreamUser }>(authUrl)
+
+      if (!authData.user_info || authData.user_info.auth !== 1) {
+        throw new Error('Credenziali non valide')
+      }
+
+      const categoriesUrl = `${server}/player_api.php?username=${encodeURIComponent(credentials.username)}&password=${encodeURIComponent(credentials.password)}&action=get_live_categories`
+
+      const categoriesData = await fetchJson<XtreamCategory[]>(categoriesUrl)
+      setCategories(categoriesData)
+
+main
       const firstCategoryId = categoriesData[0]?.category_id ?? ''
       setSelectedCategoryId(firstCategoryId)
       setAppState('channels')
@@ -196,8 +257,15 @@ export default function Home() {
       if (firstCategoryId) {
         await loadChannels(firstCategoryId, credentials)
       }
+codex/review-existing-iptv-pwa-code-512lqx
     } catch (loginError) {
       setError(toFriendlyError(loginError, 'login'))
+
+    } catch {
+      setError(
+        'Login fallito: controlla URL server/credenziali o eventuali blocchi CORS del provider.',
+      )
+main
     } finally {
       setIsLoading(false)
     }
@@ -250,6 +318,7 @@ export default function Home() {
                 />
               </label>
 
+codex/review-existing-iptv-pwa-code-512lqx
               <label>
                 Proxy URL (opzionale)
                 <input
@@ -264,6 +333,8 @@ export default function Home() {
                 accetta <code>?url=...</code>.
               </p>
 
+
+main
               <button type="submit" disabled={!isLoginValid || isLoading}>
                 {isLoading ? 'Connessione...' : 'Accedi'}
               </button>
@@ -298,9 +369,13 @@ export default function Home() {
                 <li key={channel.stream_id}>
                   <button
                     type="button"
+codex/review-existing-iptv-pwa-code-512lqx
                     className={
                       selectedChannel?.stream_id === channel.stream_id ? 'channel active' : 'channel'
                     }
+
+                    className={selectedChannel?.stream_id === channel.stream_id ? 'channel active' : 'channel'}
+              main
                     onClick={() => setSelectedChannel(channel)}
                   >
                     {channel.name}

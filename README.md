@@ -14,6 +14,7 @@ Non devi eseguire `npm install` o `npm run dev` dal tablet.
 
 Una volta aperta la pagina dal browser Android, puoi anche aggiungerla alla home come app (PWA).
 
+codex/review-existing-iptv-pwa-code-512lqx
 ## Se su GitHub Pages appare "Login fallito"
 Se le stesse credenziali funzionano in altre app, il problema di solito è CORS/rete browser, non username/password.
 
@@ -24,6 +25,7 @@ Cosa fare:
 
 Nota: su browser web (incluso Android) il provider può bloccare richieste cross-origin anche con credenziali corrette.
 
+main
 ## Deploy automatico (GitHub Actions)
 Il workflow è già incluso in `.github/workflows/deploy-pages.yml` e pubblica la cartella `dist` su GitHub Pages.
 
@@ -46,7 +48,10 @@ npm run build
 - Caricamento categorie live (`get_live_categories`)
 - Caricamento canali live per categoria (`get_live_streams`)
 - Riproduzione HLS (`hls.js`) con fallback nativo se supportato dal browser
+codex/review-existing-iptv-pwa-code-512lqx
 - Supporto proxy opzionale nel login (`Proxy URL`) per bypassare limiti CORS lato browser
+
+main
 - Manifest PWA con icone app (`public/icons`)
 
 ## Nota importante
