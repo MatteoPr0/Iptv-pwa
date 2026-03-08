@@ -6,7 +6,7 @@ Web app mobile-first per login Xtream Codes, caricamento canali live e riproduzi
 - Node.js 20+
 - npm 10+
 
-## Installazione
+## Installazione locale
 ```bash
 npm install
 npm run dev
@@ -17,14 +17,20 @@ npm run dev
 npm run build
 ```
 
+## Deploy su GitHub Pages
+Il repository include workflow automatico in `.github/workflows/deploy-pages.yml`.
+
+1. In GitHub vai su **Settings → Pages**
+2. In **Build and deployment** seleziona **Source: GitHub Actions**
+3. Fai push su `main`
+4. Il workflow costruisce con `VITE_BASE_PATH=/<nome-repo>/` e pubblica `dist` su Pages
+
 ## Funzionalità MVP attuali
 - Login Xtream (`player_api.php` con username/password)
 - Caricamento categorie live (`get_live_categories`)
 - Caricamento canali live per categoria (`get_live_streams`)
 - Riproduzione HLS (`hls.js`) con fallback nativo se supportato dal browser
-
-## Deploy
-Collega il repository a Cloudflare Pages oppure Vercel.
+- Manifest PWA con icone app (`public/icons`)
 
 ## Nota importante
 Usare solo con credenziali e contenuti autorizzati.
