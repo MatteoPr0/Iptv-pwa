@@ -35,11 +35,11 @@ select {
 }
 
 .card {
-  width: min(100%, 34rem);
+  width: min(100%, 44rem);
   border-radius: 1rem;
   border: 1px solid #243252;
   background: rgba(11, 16, 32, 0.88);
-  padding: 1.25rem;
+  padding: 1rem;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
 }
 
@@ -66,7 +66,8 @@ label {
   font-size: 0.92rem;
 }
 
-input {
+input,
+select {
   width: 100%;
   border-radius: 0.65rem;
   border: 1px solid #2e3d61;
@@ -88,9 +89,65 @@ button:disabled {
   opacity: 0.5;
 }
 
-.roadmap {
-  margin: 1rem 0 0;
-  padding-left: 1.2rem;
-  color: #b8c3dc;
-  line-height: 1.55;
+.secondary {
+  background: #243252;
+  color: #d8e1f5;
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.channels-layout {
+  margin-top: 0.75rem;
+}
+
+.channel-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 1rem;
+  display: grid;
+  gap: 0.45rem;
+  max-height: 38dvh;
+  overflow: auto;
+}
+
+.channel {
+  width: 100%;
+  text-align: left;
+  background: #111a34;
+  color: #dce6ff;
+}
+
+.channel.active {
+  background: #3c67c9;
+  color: #ffffff;
+}
+
+.player {
+  border: 1px solid #2e3d61;
+  border-radius: 0.85rem;
+  background: #070b18;
+  padding: 0.65rem;
+}
+
+video {
+  width: 100%;
+  border-radius: 0.55rem;
+  background: #000;
+}
+
+.muted {
+  margin: 0.4rem 0 0;
+  color: #a8b5d1;
+  font-size: 0.92rem;
+}
+
+.error {
+  margin: 0.85rem 0 0;
+  color: #ff9595;
+  font-size: 0.92rem;
 }

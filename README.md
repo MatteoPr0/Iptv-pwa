@@ -17,15 +17,15 @@ npm run dev
 npm run build
 ```
 
+## Funzionalità MVP attuali
+- Login Xtream (`player_api.php` con username/password)
+- Caricamento categorie live (`get_live_categories`)
+- Caricamento canali live per categoria (`get_live_streams`)
+- Riproduzione HLS (`hls.js`) con fallback nativo se supportato dal browser
+
 ## Deploy
 Collega il repository a Cloudflare Pages oppure Vercel.
 
-## Struttura
-- Login server / username / password
-- Fetch `player_api.php`
-- Categorie live
-- Canali live
-- Player HLS con `hls.js`
-
 ## Nota importante
-Usare solo con credenziali e contenuti autorizzati. Alcuni provider non espongono stream browser-friendly; in quel caso conviene un wrapper Android con Capacitor.
+Usare solo con credenziali e contenuti autorizzati.
+Alcuni provider non espongono stream browser-friendly o bloccano CORS; in quel caso conviene usare un backend proxy o wrapper Android con Capacitor.
